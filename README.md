@@ -17,7 +17,7 @@ Use.
     ### encode ###
     s.encode 'a string'
     s.encode ['an', 'array']
-    s.encode { :a => 'hash' }
+    s.encode :a => 'hash'
 
     ### decode ###
     s.decode '["da7555389d05e04a3367b84aed401cafbbecfe3d","example"]'
