@@ -26,7 +26,21 @@ describe SignedJson do
 
   end
 
-  describe "SignedJson::Signer#decode error handling" do
+  describe "Signer#encode" do
+
+    it "returns a string" do
+      encoded = SignedJson::Signer.new('right').encode('test')
+      encoded.should be_instance_of(String)
+    end
+
+    it "returns a valid JSON-encoded array" do
+      encoded = SignedJson::Signer.new('right').encode('test')
+      JSON.parse(encoded).should be_instance_of(Array)
+    end
+
+  end
+
+  describe "Signer#decode error handling" do
 
     it "raises SignatureError for incorrect key/signature" do
       encoded = SignedJson::Signer.new('right').encode('test')
