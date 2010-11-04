@@ -1,0 +1,3 @@
+module SignedJson
+  # Your code goes here...
+end
