@@ -6,11 +6,10 @@ Gem::Specification.new do |s|
   s.name        = "signed_json"
   s.version     = SignedJson::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
-  s.homepage    = "http://rubygems.org/gems/signed_json"
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.authors     = ["Paul Annesley"]
+  s.email       = ["paul@annesley.cc"]
+  s.homepage    = "http://github.com/pda/signed_json"
+  s.summary     = %q{Encodes and decodes JSON-encodable data into and from a signed JSON string.}
 
   s.rubyforge_project = "signed_json"
 
