@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Paul Annesley"]
   s.email       = ["paul@annesley.cc"]
   s.homepage    = "http://github.com/pda/signed_json"
-  s.summary     = %q{Encodes and decodes JSON-encodable data into and from a signed JSON string.}
+  s.summary     = %q{Encodes and decodes data to a JSON string signed with OpenSSL HMAC. Great for signed cookies.}
 
   s.rubyforge_project = "signed_json"
 
