@@ -75,6 +75,13 @@ RSpec speaks for the Ruby implementation:
     Finished in 0.0186 seconds
     9 examples, 0 failures
 
+Tested against:
+
+    ruby 1.9.2p0 (2010-08-18 revision 29036) [x86_64-linux]
+    rubinius 1.1.0 (1.8.7 release 2010-09-23 JI) [x86_64-unknown-linux-gnu]
+    ruby 1.8.7 (2010-08-16 patchlevel 302) [x86_64-linux]
+    jruby 1.5.3 (ruby 1.8.7 patchlevel 249) (2010-09-28 7ca06d7) (Java HotSpot(TM) 64-Bit Server VM 1.6.0_22) [amd64-java]
+
 
 Meh.
 ----
