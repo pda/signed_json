@@ -19,6 +19,9 @@ module SignedJson
       data
     end
 
+    # Generates an HMAC digest for the JSON representation of the given input.
+    # JSON generation must be consistent across platforms.
+    # e.g. in Python, specify separators=(',',':') to eliminate whitespace.
     def digest_for(input)
       require 'openssl' unless defined?(OpenSSL) # from ActiveSupport::MessageVerifier
       digest = OpenSSL::Digest.const_get(@digest).new

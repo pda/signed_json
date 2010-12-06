@@ -43,6 +43,8 @@ Rails already has a nice signed cookie implementation, but because [`ActiveSuppo
 
 `SignedJson::Signer`, on the other hand, can easily be implemented in other languages, allowing for signed cookies shared between same-domain web applications, for example.
 
+Note that the JSON-encoding must be consistent across implementations.  For example in Python, separators=(',',':') must be specified to eliminate whitespace which would invalidate the HMAC digest.
+
 
   [1]: http://en.wikipedia.org/wiki/HMAC
   [2]: http://ruby-doc.org/ruby-1.9/classes/OpenSSL/HMAC.html
