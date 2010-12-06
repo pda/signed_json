@@ -20,9 +20,9 @@ module SignedJson
     end
 
     def digest_for(input)
-      # ActiveSupport::MessageVerifier does this, probably for a good reason.
-      require 'openssl' unless defined?(OpenSSL)
-      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.const_get(@digest).new, @secret, input.to_json)
+      require 'openssl' unless defined?(OpenSSL) # from ActiveSupport::MessageVerifier
+      digest = OpenSSL::Digest.const_get(@digest).new
+      OpenSSL::HMAC.hexdigest(digest, @secret, input.to_json)
     end
 
     private
