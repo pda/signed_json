@@ -55,6 +55,12 @@ describe SignedJson do
       }.should raise_error(SignedJson::InputError)
     end
 
+    it "raises InputError for nil input" do
+      lambda {
+        SignedJson::Signer.new('key').decode(nil)
+      }.should raise_error(SignedJson::InputError)
+    end
+
   end
 
 end

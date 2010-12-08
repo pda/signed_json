@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    signed_json (0.0.1)
+    signed_json (0.0.3)
       json
 
 GEM

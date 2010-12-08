@@ -33,7 +33,7 @@ module SignedJson
     def json_decode(input)
       begin
         parts = JSON.parse(input)
-      rescue JSON::ParserError
+      rescue TypeError, JSON::ParserError
         raise InputError
       end
 
