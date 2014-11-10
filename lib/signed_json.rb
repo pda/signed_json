@@ -14,7 +14,7 @@ module SignedJson
     end
 
     def decode(input)
-      digest, data = json_decode(input)
+      digest, data = decode_digest_and_data(input)
       raise SignatureError unless digest === digest_for(data)
       data
     end
@@ -30,9 +30,9 @@ module SignedJson
 
     private
 
-    def json_decode(input)
+    def decode_digest_and_data(json)
       begin
-        parts = JSON.parse(input)
+        parts = JSON.parse(json)
       rescue TypeError, JSON::ParserError
         raise InputError
       end
