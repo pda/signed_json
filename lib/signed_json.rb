@@ -31,17 +31,17 @@ module SignedJson
     private
 
     def decode_digest_and_data(json)
-      begin
-        parts = JSON.parse(json)
-      rescue TypeError, JSON::ParserError
-        raise InputError
-      end
-
+      parts = json_parse(json)
       unless parts.instance_of?(Array) && parts.length == 2
         raise InputError
       end
-
       parts
+    end
+
+    def json_parse(json)
+      JSON.parse(json)
+    rescue TypeError, JSON::ParserError
+      raise InputError
     end
 
   end
