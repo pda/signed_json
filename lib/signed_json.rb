@@ -10,7 +10,7 @@ module SignedJson
     end
 
     def encode(input)
-      [digest_for(input), input].to_json
+      json_generate([digest_for(input), input])
     end
 
     def decode(input)
@@ -25,7 +25,7 @@ module SignedJson
     def digest_for(input)
       require 'openssl' unless defined?(OpenSSL) # from ActiveSupport::MessageVerifier
       digest = OpenSSL::Digest.const_get(@digest).new
-      OpenSSL::HMAC.hexdigest(digest, @secret, input.to_json)
+      OpenSSL::HMAC.hexdigest(digest, @secret, json_generate(input))
     end
 
     private
@@ -42,6 +42,10 @@ module SignedJson
       JSON.parse(json)
     rescue TypeError, JSON::ParserError
       raise InputError
+    end
+
+    def json_generate(data)
+      data.to_json
     end
 
   end
