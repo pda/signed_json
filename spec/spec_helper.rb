@@ -23,7 +23,7 @@ RSpec::Matchers.define :round_trip_as_signed_json do
     false
   end
 
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     if @reason == :not_encoded
       "Expected encoded to be different to original input: #{actual}"
     elsif @reason == :mismatch
