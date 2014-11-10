@@ -46,7 +46,8 @@ module SignedJson
     end
 
     def json_generate(data)
-      data.to_json
+      # Use JSON.dump; JSON.generate only handles top-level object/array.
+      JSON.dump(data)
     end
 
   end
