@@ -37,11 +37,12 @@ module SignedJson
         raise InputError
       end
 
-      raise InputError unless
-        parts.instance_of?(Array) && parts.length == 2
+      unless parts.instance_of?(Array) && parts.length == 2
+        raise InputError
+      end
 
       parts
     end
-  end
 
+  end
 end
