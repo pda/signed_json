@@ -10,7 +10,8 @@ module SignedJson
     end
 
     def encode(input)
-      json_generate([digest_for(input), input])
+      data_to_encode = [digest_for(input), input]
+      json_generate(data_to_encode)
     end
 
     def decode(input)
