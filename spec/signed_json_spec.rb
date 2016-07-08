@@ -38,6 +38,44 @@ describe SignedJson do
       expect(JSON.parse(encoded)).to be_instance_of(Array)
     end
 
+    describe "known-good signature from v2.0.0" do
+      {
+        {"hello" => "world"} => "c9bd3c44a91cfe176f71afcc1e08240555f0ce8b",
+        ["hello", "world"] => "67a288435a9268645d399e5969de777096028b2d",
+        nil => "546b281dfcf7e69a4dbcb6a5001929585d65c7d7",
+        "hello world" => "1ed96f0a1cadcee5bd139eb850d39ac1bcda6747",
+        1234 => "307c560360fbf15ecab5a78299052fe68a302d7a",
+      }.each do |data, expected|
+        it "is #{expected} for #{data.inspect}" do
+          encoded = SignedJson::Signer.new("secret").encode(data)
+          signature, payload = JSON.parse(encoded)
+          expect(signature).to eq(expected)
+          expect(payload).to eq(data)
+        end
+      end
+    end
+
+    it "returns known-good signature and payload for object" do
+      encoded = SignedJson::Signer.new("secret").encode(hello: "world")
+      signature, payload = JSON.parse(encoded)
+      expect(signature).to eq("c9bd3c44a91cfe176f71afcc1e08240555f0ce8b")
+      expect(payload).to eq({"hello" => "world"})
+    end
+
+    it "returns known-good signature and payload for array" do
+      encoded = SignedJson::Signer.new("secret").encode(%w(hello world))
+      signature, payload = JSON.parse(encoded)
+      expect(signature).to eq("67a288435a9268645d399e5969de777096028b2d")
+      expect(payload).to eq(["hello", "world"])
+    end
+
+    it "returns known-good signature and payload for nil" do
+      encoded = SignedJson::Signer.new("secret").encode(nil)
+      signature, payload = JSON.parse(encoded)
+      expect(signature).to eq("546b281dfcf7e69a4dbcb6a5001929585d65c7d7")
+      expect(payload).to eq(nil)
+    end
+
   end
 
   describe "Signer#decode error handling" do

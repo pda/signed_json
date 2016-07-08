@@ -11,7 +11,7 @@ module SignedJson
 
     def encode(input)
       data_to_encode = [digest_for(input), input]
-      json_generate(data_to_encode)
+      JSON.generate(data_to_encode)
     end
 
     def decode(input)
@@ -26,7 +26,7 @@ module SignedJson
     def digest_for(input)
       require 'openssl' unless defined?(OpenSSL) # from ActiveSupport::MessageVerifier
       digest = OpenSSL::Digest.const_get(@digest).new
-      OpenSSL::HMAC.hexdigest(digest, @secret, json_generate(input))
+      OpenSSL::HMAC.hexdigest(digest, @secret, signature_input(input))
     end
 
     private
@@ -45,9 +45,23 @@ module SignedJson
       raise InputError
     end
 
-    def json_generate(data)
-      # Use JSON.dump; JSON.generate only handles top-level object/array.
-      JSON.dump(data)
+    def signature_input(data)
+      if [Array, Hash].any? { |c| c === data }
+        JSON.generate(data)
+      else
+        signature_input_for_unsupported_root_type(data)
+      end
+    end
+
+    # signed_json depended on Ruby JSON encoding top-level objects other than
+    # array and object, which are the only two JSON actually supports.
+    #
+    # json_pure v2.x refuses to JSON encode these types.
+    #
+    # signed_json must continue to support them to avoid breaking signatures
+    # across versions / implementations.
+    def signature_input_for_unsupported_root_type(data)
+      JSON.generate([data])[1..-2]
     end
 
   end
